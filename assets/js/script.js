@@ -38,7 +38,7 @@ function populateCityWeather(e){
     windDisplay.textContent = currentWind +" mph"
     humidityDisplay.textContent = currentHumidity +"%"
     currentWeatherEl.append(cityNameDisplay, tempDisplay, windDisplay, humidityDisplay)
-    // write a for loop for all 4 indecies of the array (0,1,2,3,4) and get them to print text to html (append)
+    // write a for loop for all 5 indecies of the array (0,1,2,3,4) and get them to print text to html (append)
 })
 }
 
