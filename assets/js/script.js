@@ -1,9 +1,10 @@
 
 console.log("hello");
-
+var currentWeatherEl = document.querySelector(".todayWeather")
+var forecastEl = document.querySelector(".forecast")
 var apiKey = "52b2951fafc393d5feca833b40a0a903";
-var citySearch = document.getElementById("city-search").value;
-var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch+"&appid="+ apiKey;
+var citySearch = document.getElementById("city-search");
+// var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch+"&appid="+ apiKey;
 
 
 
@@ -12,7 +13,7 @@ var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySe
 
 function populateCityWeather(e){
     e.preventDefault();
-    var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch+"&appid="+ apiKey;
+    var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch.value+"&appid="+ apiKey;
     console.log("It works!", citySearch)
     fetch(weatherAPIurl)
 .then(function(res) {
@@ -21,6 +22,23 @@ function populateCityWeather(e){
 })
 .then(function(result){
     console.log(result)
+    var cityName = result.city.name
+    
+    var currentTemp = result.list[0].main.temp
+    var currentHumidity = result.list[0].main.humidity
+    var currentWind = result.list[0].wind.speed
+    var latitude = result.city.coord.lat
+    var longitude = result.city.coord.lon
+    var cityNameDisplay = document.createElement("h4")
+    var tempDisplay = document.createElement("h4")
+    var windDisplay = document.createElement("h4")
+    var humidityDisplay = document.createElement("h4")
+    cityNameDisplay.textContent = cityName
+    tempDisplay.textContent = currentTemp +" degrees"
+    windDisplay.textContent = currentWind +" mph"
+    humidityDisplay.textContent = currentHumidity +"%"
+    currentWeatherEl.append(cityNameDisplay, tempDisplay, windDisplay, humidityDisplay)
+    // write a for loop for all 4 indecies of the array (0,1,2,3,4) and get them to print text to html (append)
 })
 }
 
