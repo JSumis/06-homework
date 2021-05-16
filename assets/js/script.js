@@ -4,6 +4,9 @@ var currentWeatherEl = document.querySelector(".todayWeather")
 var forecastEl = document.querySelector(".forecast")
 var apiKey = "52b2951fafc393d5feca833b40a0a903";
 var citySearch = document.getElementById("city-search");
+
+// Displays current date using moment
+var now = moment().format("ddd MMM Do, YYYY");
 // var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch+"&appid="+ apiKey;
 
 
@@ -14,7 +17,7 @@ var citySearch = document.getElementById("city-search");
 function populateCityWeather(e){
     e.preventDefault();
     var weatherAPIurl = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearch.value+"&appid="+ apiKey;
-    console.log("It works!", citySearch)
+    // console.log("It works!", citySearch)
     fetch(weatherAPIurl)
 .then(function(res) {
     return res.json()
@@ -33,14 +36,25 @@ function populateCityWeather(e){
     var tempDisplay = document.createElement("h4")
     var windDisplay = document.createElement("h4")
     var humidityDisplay = document.createElement("h4")
-    cityNameDisplay.textContent = cityName
-    tempDisplay.textContent = currentTemp +" degrees"
-    windDisplay.textContent = currentWind +" mph"
-    humidityDisplay.textContent = currentHumidity +"%"
+    cityNameDisplay.textContent = cityName + " " + now
+    tempDisplay.textContent = "Temp: " + currentTemp +" degrees"
+    windDisplay.textContent = "Wind Speed: " + currentWind +" mph"
+    humidityDisplay.textContent = "Humidity: " + currentHumidity +"%"
     currentWeatherEl.append(cityNameDisplay, tempDisplay, windDisplay, humidityDisplay)
+
     // write a for loop for all 5 indecies of the array (0,1,2,3,4) and get them to print text to html (append)
+    var i;
+    for (i = 0; i < 5; i++){
+        var text = "The number is " + i + "<br>";
+        console.log(text);
+        var currentTempOfDay = result.list[i].main.temp;
+        var currentHumidityOfDay = result.list[i].main.humidity;
+        var currentWindOfDay = result.list[i].wind.speed;
+        document.getElementById("day" + i).innerHTML = currentTempOfDay;
+    }
 })
 }
+
 
 document.getElementById("searchBtn").addEventListener("click", populateCityWeather);
 
